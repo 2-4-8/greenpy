@@ -30,3 +30,11 @@ class WorkDaySerializer(serializers.HyperlinkedModelSerializer):
             'additional_issues_completed', 'salary', 'work_month', 'comment', 'work_time'
         )
         read_only_fields = ('num_of_work_day', 'date', 'work_month')
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    periods = serializers.HyperlinkedRelatedField(many=True, view_name='workmonth-detail', read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('url', 'id', 'username', 'periods')

@@ -14,7 +14,7 @@ MONTH_CHOICES = (
 class WorkMonth(models.Model):
     month = models.PositiveSmallIntegerField(choices=MONTH_CHOICES, default=1)
     year = models.PositiveSmallIntegerField()
-    owner = models.ForeignKey('auth.User', related_name='months', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='periods', on_delete=models.CASCADE)
     comment = models.TextField(null=True)
 
     def get_days_count(self):
