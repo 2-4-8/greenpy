@@ -69,13 +69,13 @@ class WorkMonth(models.Model):
 
     def get_sum_salary(self):
         days = self.days.all()
-        issues = list(map(lambda x: x.salary, days))
-        return sum(issues)
+        salaries = list(map(lambda x: x.salary, days))
+        return sum(salaries)
 
     def get_sum_work_time(self):
         days = self.days.all()
-        issues = list(map(lambda x: x.get_work_time(), days))
-        return sum(issues)
+        work_time_list = list(map(lambda x: x.get_work_time(), days))
+        return sum(work_time_list)
 
 
 @receiver(post_save, sender=WorkMonth)
