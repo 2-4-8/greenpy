@@ -17,23 +17,18 @@ class WorkMonth(models.Model):
     owner = models.ForeignKey('auth.User', related_name='months', on_delete=models.CASCADE)
     comment = models.TextField(null=True)
 
-    # def save(self, *args, **kwargs):
-    #     # if not self.pk:
-    #     #     for day in range(calendar.monthrange(self.year, self.month)[1]):
-    #     #         work_day = WorkDay()
-    #     if self.days.count() == 0:
-    #         for day in range(calendar.monthrange(self.year, self.month)[1]):
-    #             work_day = WorkDay(date=datetime.date(self.year, self.month, day+1), work_month=self.pk)
-    #             work_day.save()
-    #             self.days.add(work_day)
-    #     super().save(*args, **kwargs)
-
 
 @receiver(post_save, sender=WorkMonth)
 def post_save(sender, instance, **kwargs):
     if instance.days.count() == 0:
         for day in range(calendar.monthrange(instance.year, instance.month)[1]):
-            work_day = WorkDay(date=datetime.date(instance.year, instance.month, day+1), work_month=instance)
+            current_work_day = 0
+            date = datetime.date(instance.year, instance.month, day+1)
+            if date.weekday() in range(0,5):
+                current_work_day += 1
+                work_day = WorkDay(date=date, work_month=instance, num_of_work_day=current_work_day)
+            else:
+                work_day = WorkDay(date=date, work_month=instance)
             work_day.save()
             instance.days.add(work_day)
 
