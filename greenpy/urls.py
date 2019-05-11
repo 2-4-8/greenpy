@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework_swagger.views import get_swagger_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +25,7 @@ urlpatterns = [
     path('worktime/', include('worktime.urls')),
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
+    url(r'^$', get_swagger_view(title='Pastebin API')),
 ]
 
 from django.conf.urls import include
