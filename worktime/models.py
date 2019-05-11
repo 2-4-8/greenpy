@@ -106,7 +106,10 @@ class WorkDay(models.Model):
     comment = models.TextField(null=True)
 
     def get_work_time(self):
-        return (
-            datetime.datetime.combine(self.date, self.leave_time)
-            - datetime.datetime.combine(self.date, self.come_time)
-        ).seconds
+        if self.come_time and self.leave_time:
+            return (
+                datetime.datetime.combine(self.date, self.leave_time)
+                - datetime.datetime.combine(self.date, self.come_time)
+            ).seconds
+        else:
+            return 0
