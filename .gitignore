@@ -1,3 +1,7 @@
 .idea/
 db.sqlite3
 .tutorial/migrations/*
+.cache
+__pycache__
+*.py[cod]
+*.pyc
