@@ -4,6 +4,7 @@ from worktime.models import WorkMonth, WorkDay
 
 
 class WorkDaySerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     work_time = serializers.IntegerField(source='get_work_time', read_only=True)
 
     class Meta:
@@ -13,6 +14,7 @@ class WorkDaySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class WorkMonthCreationSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     owner = serializers.ReadOnlyField(source='owner.username')
     days = WorkDaySerializer(many=True, read_only=True)
     days_count = serializers.IntegerField(source='get_days_count', read_only=True)
